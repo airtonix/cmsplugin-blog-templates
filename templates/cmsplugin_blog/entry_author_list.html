@@ -1,0 +1,14 @@
+{% extends "cmsplugin_blog/cmsplugin_blog_base.html" %}
+{% load i18n placeholder_tags cmsplugin_blog_tags simple_translation_tags sekizai_tags %}
+
+{% block site-styles %}{{ block.super }}
+{% addtoblock 'js' %}
+<link rel="alternate" type="application/rss+xml" title="RSS feed for author {{ author|escape }}" href="{% if request.LANGUAGE_CODE %}/{{ request.LANGUAGE_CODE }}{% endif %}{% url blog_rss_author author %}" />
+<link rel="alternate" type="application/rss+xml" title="RSS feed for author {{ author|escape }} (any language)" href="{% if request.LANGUAGE_CODE %}/{{ request.LANGUAGE_CODE }}{% endif %}{% url blog_rss_any_author author %}" />
+{% endaddtoblock %}
+{% endblock %}
+
+{% block blog-content %}
+  <h3 class="header archive-header">{% trans "Entries by" %} {{ author }}</h3>
+  {% include "cmsplugin_blog/snippets/list-item-summary.html" with Entries=object_list TargetPlaceholder=excerpt %}
+{% endblock %}

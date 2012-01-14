@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load cms_tags sekizai_tags menu_tags %}
+
+    {% block body-id %}node-{% page_attribute "slug" %}{% endblock %}
+
+    {% block canvas-inner %}
+
+      <div id="layout-canvas" class="row">
+        {% block site-header %}
+        <header id="site-header" class="right">
+
+            <a href="/" class="branding">
+            {% block site-brand %}
+                {% block site-brand-inner %}{% spaceless %}
+                <h1>{{ Site.name }}</h1>
+                {% endspaceless %}{% endblock %}
+            {% endblock %}
+            </a>
+            <section id="site-nav">
+            {% block site-nav %}
+              <ul class="nav">
+              {% block site-nav-inner %}
+                {% show_menu_below_id 'home' %}
+              {% endblock %}
+              </ul>
+            {% endblock %}
+            </section>
+
+            {% block contact-details %}
+              {% show_placeholder "vcard" 7 %}
+            {% endblock %}
+        </header>
+        {% endblock %}
+
+        {% block site-content %}
+        <article id="page-canvas" class="left">
+          {% block site-content-inner %}
+            {% block page-header %}
+            <section id="page-header">
+                <div class="title">
+                {% block page-header-inner %}
+                    <h2><span>{% block page-title %}{% page_attribute "page_title" %}{% endblock %}</span></h2>
+                {% endblock %}
+                </div>
+            </section>
+            {% endblock %}
+            {% block page-body %}
+            <section id="page-body">
+                {% block page-body-inner %}{% endblock %}
+            </section>
+            {% endblock %}
+          {% endblock %}
+        </article>
+        {% endblock %}
+    </div>
+
+        {% block site-footer %}
+        <footer id="site-footer">
+            <ul class="copyright span8">
+                <li><a href="/meta/copyright/">copyright &copy;{% now "Y" %} {{ Site.name }}</a></li>
+                {% show_menu_below_id "meta" 0 0 0 0 %}
+            </ul>
+            <ul class="meta span8">
+            {% block site-footer-inner %}
+                {% show_menu_below_id "home" 0 0 0 0 %}
+            {% endblock %}
+            </ul>
+        </footer>
+        {% endblock %}
+    {% endblock %}

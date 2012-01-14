@@ -1,0 +1,18 @@
+{% extends "page.html" %}
+{% load i18n cmsplugin_blog_tags %}
+
+{% block body-class %}page page-80-20 blog-page{% endblock %}
+
+{% block page-body-inner %}
+  <div class="blog-content span8">
+    {% block blog-content %}
+      {% include "cmsplugin_blog/latest_entries.html" %}
+    {% endblock %}
+  </div>
+  <div class="blog-sidebar span3">
+    {% block blog-sidebar %}
+      {% render_month_links %}
+      {% render_tag_links %}
+    {% endblock %}
+  </div>
+{% endblock %}

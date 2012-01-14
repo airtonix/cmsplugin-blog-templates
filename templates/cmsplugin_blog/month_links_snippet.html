@@ -1,0 +1,12 @@
+{% load i18n %}
+{% if dates %}
+<div class="sidebar-block blog-date-list">
+  <div class="list">
+    <ul>
+    {% for d in dates reversed %}
+      <li><a href="{% url blog_archive_month year=d|date:"Y",month=d|date:"m" %}">{{ d|date:"F Y" }}</a></li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}

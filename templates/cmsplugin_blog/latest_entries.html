@@ -1,0 +1,4 @@
+{% load i18n placeholder_tags simple_translation_tags djangocms_utils_tags %}
+<div class="cmsplugin cmsplugin-blog cmsplugin-blog-latest-entries">
+{% include "cmsplugin_blog/snippets/list-item-summary.html" with Entries=latest  %}
+</div>

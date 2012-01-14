@@ -1,0 +1,27 @@
+{% extends "cmsplugin_blog/cmsplugin_blog_base.html" %}
+
+{% load placeholder_tags cmsplugin_blog_tags simple_translation_tags sekizai_tags %}
+
+{% block body-class %}{{ block.super }} blog-entry-detail{% endblock %}
+{% block body-id %}blog-entry-{{ object.id }}{% endblock %}
+
+{% block blog-content %}
+    <div class="title">
+      <h3><a href="{{ title.get_absolute_url }}">
+        {% with object|get_preferred_translation_from_request:request as title %}{{ title }}{% endwith %}
+        </a>
+        <small class="date">
+          <span>{{ object.pub_date|date:"d F Y" }}</span></small>
+      </h3>
+    </div>
+    <div class="blog-body">
+    {% with object.placeholders|choose_placeholder:"content" as content %}
+        {% render_placeholder content %}
+    {% endwith %}
+    </div>
+    <div class="blog-comments">
+    {% with object.placeholders|choose_placeholder:"comments" as content %}
+        {% render_placeholder content %}
+    {% endwith %}
+    </div>
+{% endblock %}

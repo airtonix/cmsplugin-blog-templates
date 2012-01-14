@@ -1,0 +1,17 @@
+{% load i18n %}
+{% if authors %}
+<div class="sidebar-block blog-authors-list">
+  <div class="header">
+    <b>{% trans "See entries by" %}</b>
+  </div>
+  <div class="list">
+    <ul>
+    {% for author in authors %}
+      <li>
+        <a href="{% url blog_archive_author author=author %}">{{ author }}</a>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}

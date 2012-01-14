@@ -1,0 +1,16 @@
+{% extends "cmsplugin_blog/cmsplugin_blog_base.html" %}
+{% load i18n cmsplugin_blog_tags sekizai_tags %}
+
+{% block body-class %}{{ block.super }} blog-archive-list  blog-archive-list-daily{% endblock %}
+
+{% block blog-content %}
+  <h3 class="header archive-header">{% trans "Entries for" %} {{ year }}</h3>
+  <ul>
+      {% for date in date_list %}
+          <li><a href="{% url blog_archive_month year=year month=date|date:'m'  %}">{{ date|date:"F" }}</a></li>
+      {% empty %}
+          <li>{% trans "No entries for this year" %}</li>
+      {% endfor %}
+  </ul>
+
+{% endblock %}

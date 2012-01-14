@@ -1,0 +1,41 @@
+{% load i18n placeholder_tags cmsplugin_blog_tags simple_translation_tags %}
+
+{% with TargetPlaceholder|default:"excerpt" as Placeholder %}
+
+<div class='blog-entry-list blog-entry-{{Placeholder|slugify}}-list'>
+  {% with Entries|annotate_with_translations as BlogEntries %}
+
+  {% regroup BlogEntries by pub_date|date:"d F Y" as GroupedEntries %}
+
+  {% for DateGroup in GroupedEntries %}
+    <div class="datestamp">
+      <div class="fragment day">{{ DateGroup.list.0.pub_date|date:"dS" }}</div>
+      <div class="fragment month">{{ DateGroup.list.0.pub_date|date:"M" }}</div>
+    </div>
+    <ul>
+    {% for entry in DateGroup.list %}
+      <li>
+      {% with entry|get_preferred_translation_from_request:request as Entry %}
+
+        <div class="title">
+          <h3><a href="{{ Entry.get_absolute_url }}">{{ Entry.title }}</a></h3>
+        </div>
+
+        <div class="entry">
+        {% render_placeholder entry.placeholders|choose_placeholder:Placeholder %}
+        </div>
+
+        <div class="read-more">
+            <a href="{{ Entry.get_absolute_url }}">Read More...</a>
+        </div>
+
+      {% endwith %}
+      </li>
+    {% endfor %}
+    </ul>
+  {% endfor %}
+
+  {% endwith %}
+</div>
+
+{% endwith %}
